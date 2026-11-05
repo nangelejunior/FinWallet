@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="../FinWallet.Application/FinWallet.Application.csproj" />
+    <ProjectReference Include="../FinWallet.Infrastructure/FinWallet.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

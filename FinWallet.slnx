@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FinWallet.Api/FinWallet.Api.csproj" />
+    <Project Path="src/FinWallet.Application/FinWallet.Application.csproj" />
+    <Project Path="src/FinWallet.Worker/FinWallet.Worker.csproj" />
+    <Project Path="src/FinWallet.Domain/FinWallet.Domain.csproj" />
+    <Project Path="src/FinWallet.Infrastructure/FinWallet.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FinWallet.IntegrationTests/FinWallet.IntegrationTests.csproj" />
+    <Project Path="tests/FinWallet.ValidationHost/FinWallet.ValidationHost.csproj" />
+    <Project Path="tests/FinWallet.UnitTests/FinWallet.UnitTests.csproj" />
+  </Folder>
+</Solution>

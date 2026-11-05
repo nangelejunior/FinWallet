@@ -1,0 +1,43 @@
+# Ambiente exclusivo e descartável. Não usa volumes nem serviços da aplicação local.
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: finwallet_validation
+      POSTGRES_USER: finwallet_validation
+      POSTGRES_PASSWORD: validation_only
+    ports:
+      - "127.0.0.1:${VALIDATION_POSTGRES_PORT:-55433}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finwallet_validation -d finwallet_validation"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  rabbitmq:
+    image: rabbitmq:4-alpine
+    user: rabbitmq
+    tmpfs:
+      - /var/lib/rabbitmq:uid=100,gid=101,mode=0700
+    environment:
+      RABBITMQ_DEFAULT_USER: finwallet_validation
+      RABBITMQ_DEFAULT_PASS: validation_only
+    ports:
+      - "127.0.0.1:${VALIDATION_RABBIT_PORT:-55672}:5672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  summary-postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: finwallet_daily_validation
+      POSTGRES_USER: finwallet_daily_validation
+      POSTGRES_PASSWORD: validation_only
+    ports:
+      - "127.0.0.1:${VALIDATION_SUMMARY_PORT:-55434}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finwallet_daily_validation -d finwallet_daily_validation"]
+      interval: 2s
+      timeout: 3s
+      retries: 30

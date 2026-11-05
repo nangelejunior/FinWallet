@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:5184
+# Cole tokens locais gerados em artifacts/auth/demo.env; não versione valores reais.
+@tokenA = REPLACE_LOCALLY
+@tokenB = REPLACE_LOCALLY
+@tokenTech = REPLACE_LOCALLY
+@walletA = 00000000-0000-0000-0000-000000000000
+@walletB = 00000000-0000-0000-0000-000000000000
+
+GET {{baseUrl}}/health
+
+###
+POST {{baseUrl}}/api/v1/wallets/
+Authorization: Bearer {{tokenA}}
+Content-Type: application/json
+
+{"currency":"BRL"}
+
+###
+POST {{baseUrl}}/api/v1/wallets/
+Authorization: Bearer {{tokenB}}
+Content-Type: application/json
+
+{"currency":"BRL"}
+
+###
+POST {{baseUrl}}/api/v1/wallets/{{walletA}}/deposits
+Authorization: Bearer {{tokenTech}}
+Content-Type: application/json
+
+{"amount":100,"idempotencyKey":"deposit-001"}
+
+###
+POST {{baseUrl}}/api/v1/transfers/
+Authorization: Bearer {{tokenA}}
+Content-Type: application/json
+
+{"sourceWalletId":"{{walletA}}","destinationWalletId":"{{walletB}}","amount":25,"idempotencyKey":"transfer-001"}
+
+###
+GET {{baseUrl}}/api/v1/wallets/{{walletA}}/balance
+Authorization: Bearer {{tokenA}}
+
+###
+GET {{baseUrl}}/api/v1/wallets/{{walletA}}/balance/history?at=2026-11-03T00:00:00Z
+Authorization: Bearer {{tokenA}}

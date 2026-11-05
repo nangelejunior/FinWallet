@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/FinWallet.Api/FinWallet.Api.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/FinWallet.Worker/FinWallet.Worker.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SummarySeed.sql" />
+  </ItemGroup>
+</Project>
